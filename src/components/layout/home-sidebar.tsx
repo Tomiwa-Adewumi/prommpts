@@ -82,7 +82,7 @@ function HomeSidebarInner({ onUnauthenticatedAction }: HomeSidebarProps) {
     ...(hasWorkspaceAccess ? [{
       name: 'Workspace',
       href: '/dashboard?view=workspace',
-      icon: Briefcase,
+      icon: undefined,
       requiresAuth: true,
     }] : []),
     {
@@ -181,13 +181,13 @@ function HomeSidebarInner({ onUnauthenticatedAction }: HomeSidebarProps) {
                     (isActive || isHovered) ? "text-white" : "text-gray-400 hover:text-white"
                   )}
                 >
-                  <IconComponent
+                  {!IconComponent ? <Briefcase size={20} className="w-5 h-5" /> : <IconComponent
                     ref={(el: HomeIconHandle | null) => {
                       iconRefs.current.set(item.name, el);
                     }}
                     size={20}
                     className="w-5 h-5"
-                  />
+                  />}
 
                   {/* Yellow dot for Generate Art */}
                   {item.name === 'Generate Art' && (

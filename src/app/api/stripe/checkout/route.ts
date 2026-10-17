@@ -16,9 +16,6 @@ function getStripeClient(): Stripe {
 
 export async function POST(request: NextRequest) {
   try {
-    // Initialize Stripe client inside the function
-    const stripe = getStripeClient();
-
     const { userId: clerkUserId } = await auth();
 
     if (!clerkUserId) {
@@ -28,6 +25,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const stripe = getStripeClient();
     const body = await request.json();
     const { packageId, successUrl, cancelUrl } = body;
 
@@ -106,7 +104,7 @@ export async function POST(request: NextRequest) {
             hasActiveSubscription: true,
             currentSubscription: {
               packageId: existingSub.package_id,
-              packageName: existingSub.package?.name,
+              packageName: (Array.isArray(existingSub.package) ? existingSub.package[0] : existingSub.package)?.name,
               stripeSubscriptionId: existingSub.stripe_subscription_id
             },
             requestedPackage: {
@@ -171,7 +169,6 @@ export async function POST(request: NextRequest) {
           },
           product_data: {
             name: creditPackage.name,
-            description: creditPackage.description || `${creditPackage.credits} credits per month`,
             metadata: {
               package_id: packageId,
             },
@@ -220,9 +217,6 @@ export async function POST(request: NextRequest) {
 // Cancel subscription endpoint
 export async function DELETE(request: NextRequest) {
   try {
-    // Initialize Stripe client inside the function
-    const stripe = getStripeClient();
-
     const { userId: clerkUserId } = await auth();
 
     if (!clerkUserId) {
@@ -261,6 +255,7 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
+    const stripe = getStripeClient();
     // Cancel subscription at period end
     const stripeSubscription = await stripe.subscriptions.update(
       subscription.stripe_subscription_id,

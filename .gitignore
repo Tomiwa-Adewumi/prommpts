@@ -52,3 +52,7 @@ mcp.json
 
 .claude
 .claude/settings.local.json
+
+# Local Supabase linking metadata is machine-specific.
+supabase/.temp/
+!/.env.example
