@@ -285,7 +285,7 @@ function HomeSidebarInner({ onUnauthenticatedAction }: HomeSidebarProps) {
                 )}
                 title={item.name}
               >
-                <IconComponent className="w-6 h-6" />
+                {IconComponent ? <IconComponent className="w-6 h-6" /> : <Briefcase className="w-6 h-6" />}
                 {/* Yellow dot for Generate Art */}
                 {item.name === 'Generate Art' && (
                   <div className="absolute top-0 right-0 w-2 h-2 bg-yellow-500 rounded-full animate-pulse" />
