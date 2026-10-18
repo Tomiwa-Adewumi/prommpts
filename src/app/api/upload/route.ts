@@ -95,7 +95,7 @@ export async function POST(request: NextRequest) {
 
     // Content moderation check (both text and image)
     const textForModeration = combineTextForModeration({
-      title: validatedMetadata.title,
+      title: validatedMetadata.title ?? "",
       description: validatedMetadata.description,
       prompt: validatedMetadata.prompt,
       negativePrompt: validatedMetadata.negativePrompt,
@@ -177,7 +177,7 @@ export async function POST(request: NextRequest) {
 
     // Generate embedding for semantic search
     const textForEmbedding = combineTextForEmbedding({
-      title: validatedMetadata.title,
+      title: validatedMetadata.title ?? "",
       description: validatedMetadata.description,
       prompt: validatedMetadata.prompt,
       tags: validatedMetadata.tags
@@ -197,7 +197,7 @@ export async function POST(request: NextRequest) {
       .from('images')
       .insert({
         user_id: userUuid,
-        title: validatedMetadata.title,
+        title: validatedMetadata.title ?? "",
         description: validatedMetadata.description,
         prompt: validatedMetadata.prompt,
         negative_prompt: validatedMetadata.negativePrompt,

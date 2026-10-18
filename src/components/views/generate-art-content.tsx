@@ -528,7 +528,7 @@ export function GenerateArtContent({ showSidebar = true }: { showSidebar?: boole
           created_at: new Date().toISOString(),
           completed_at: null
         };
-        setJobs(prev => prev ? [optimisticJob, ...prev] : [optimisticJob]);
+        setJobs(prev => prev ? [optimisticJob, ...(prev ?? [])] : [optimisticJob]);
       }
 
       // Clear form after submission
@@ -682,7 +682,7 @@ export function GenerateArtContent({ showSidebar = true }: { showSidebar?: boole
           created_at: new Date().toISOString(),
           completed_at: null
         }
-        setJobs(prev => [optimisticJob, ...prev])
+        setJobs(prev => [optimisticJob, ...(prev ?? [])])
       }
     } catch (error) {
       toast.dismiss()

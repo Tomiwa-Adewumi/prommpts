@@ -306,7 +306,7 @@ export async function POST(request: NextRequest) {
             
             // Determine response format and extract image URL
             let imageUrl: string | undefined;
-            let responseFormat: string;
+            let responseFormat = 'unrecognized';
             
             if (result.images && Array.isArray(result.images) && result.images.length > 0) {
                 // AI-ML format: images array with direct URLs
